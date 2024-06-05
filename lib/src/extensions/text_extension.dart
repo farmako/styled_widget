@@ -176,4 +176,34 @@ extension StyledText<T extends Text> on T {
 
   T textWidthBasis(TextWidthBasis? textWidthBasis) =>
       this.copyWith(textWidthBasis: textWidthBasis);
+
+  T decoration(TextDecoration? decoration) => this.copyWith(
+        style: (style ?? const TextStyle()).copyWith(
+          decoration: decoration,
+        ),
+      );
+
+  T capitalizedWords() => this.copyWith(
+        data: data!
+            .split(' ')
+            .map(
+              (e) =>
+                  e.replaceFirst(e.substring(0), e.substring(0).toUpperCase()),
+            )
+            .join(' '),
+      );
+
+  T capitalizedSentences() => this.copyWith(
+        data: data!
+            .split('.')
+            .map(
+              (e) =>
+                  " ${e.trim().replaceFirst(e.substring(0), e.substring(0).toUpperCase())}",
+            )
+            .join('.'),
+      );
+
+  T capitalizedCharacters() => this.copyWith(
+        data: data!.toUpperCase(),
+      );
 }
