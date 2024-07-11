@@ -422,20 +422,26 @@ extension StyledWidget on Widget {
 
   Widget borderRadius({
     Key? key,
-    double? all,
-    double? topLeft,
-    double? topRight,
-    double? bottomLeft,
-    double? bottomRight,
+    BorderRadius? all,
+    Radius? topLeft,
+    Radius? topRight,
+    Radius? bottomLeft,
+    Radius? bottomRight,
     bool animate = false,
   }) {
+    BorderRadius borderRadius;
+    if (all != null) {
+      borderRadius = all;
+    } else {
+      borderRadius = BorderRadius.only(
+        topLeft: topLeft ?? Radius.zero,
+        topRight: topRight ?? Radius.zero,
+        bottomLeft: bottomLeft ?? Radius.zero,
+        bottomRight: bottomRight ?? Radius.zero,
+      );
+    }
     final BoxDecoration decoration = BoxDecoration(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(topLeft ?? all ?? 0.0),
-        topRight: Radius.circular(topRight ?? all ?? 0.0),
-        bottomLeft: Radius.circular(bottomLeft ?? all ?? 0.0),
-        bottomRight: Radius.circular(bottomRight ?? all ?? 0.0),
-      ),
+      borderRadius: borderRadius,
     );
     return animate
         ? _StyledAnimatedBuilder(
